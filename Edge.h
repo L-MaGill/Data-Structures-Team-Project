@@ -3,22 +3,25 @@
 
 class Edge {
 public:
-    Edge(int src = 0, int dest = 0, int weight = 0) : 
-        src(src), dest(dest), weight(weight) {}
+    int src; //Starting point
+    int dest; //Ending point
+    int distance; //Miles (We gotta be greedy)
+    int cost; //Price (We gotta be even greedier)
+
+    //Makes a new edge
+    Edge(int src = 0, int dest = 0, int dist = 0, int cost = 0) : 
+        src(src), dest(dest), weight(weight), cost(cost) {}
 
 
+    //Compares costs
     bool operator<(const Edge& other) const {
-        if(this->weight < other.weight) {
+        if(this->cost < other.cost) {
             return true;
         }
 
         return false;
     }
 
-    
-    int src;
-    int dest;
-    int weight;
 };
 
 #endif
