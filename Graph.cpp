@@ -11,14 +11,15 @@
 
 using namespace std;
 
-template typename <T>
+template <typename T>
 void someVectorFunction () {
     vector<T> someVector;
     
 }
 
     //Add an airport
-    void insert_vertex(const Vertex<T>& ver) {
+    template <typename T>
+    void Graph<T>::insert_vertex(const Vertex<T>& ver) {
 
         if (get_vertex_index(ver) == -1) {
             vertices.push_back(ver); //insert the vertex to the array of vertices
@@ -30,7 +31,8 @@ void someVectorFunction () {
 
     //Add an edge
     //connect ver1 with ver2
-    void add_edge(const Vertex<T>& ver1, const Vertex<T>& ver2, int weight) {
+    template <typename T>
+    void Graph<T>::add_edge(const Vertex<T>& ver1, const Vertex<T>& ver2, T distance, T cost) {
 
         int i1 = get_vertex_index(ver1);
         int i2 = get_vertex_index(ver2);
@@ -39,18 +41,14 @@ void someVectorFunction () {
             throw std::string("Add_edge: incorrect vertices");
         }
 
-        Edge v(i1, i2, weight);
-        Edge v2(i2, i1, weight);
+        Edge v(i1, i2, distance, cost);
         edges[i1].push_back(v);
-
-        if (i1 != i2) {
-            edges[i2].push_back(v2);
-        }
 
     }
 
     //Prints map of airports
-    void print() const {
+    template <typename T>
+    void Graph<T>::print() const {
         for (int i = 0; i < vertices.size(); i++) {
             cout << "{ " << vertices[i].getData() << ": ";
 
@@ -64,7 +62,7 @@ void someVectorFunction () {
     }
 
     template <typename T>
-    int Graph<T>::get_vertex_index(const Vertex<T>& ver) {
+    int Graph<T>::get_vertex_index(const Vertex<T>& ver) const {
         for(int i = 0; i < vertices.size(); i++) {
 
             if (vertices[i].getData() == ver.getData()) {

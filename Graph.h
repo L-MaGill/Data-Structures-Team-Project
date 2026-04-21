@@ -3,6 +3,7 @@
 
 #include "Vertex.h"
 #include "Edge.h"
+#include "Graph.cpp"
 #include <vector>
 #include <string>
 #include <iostream>

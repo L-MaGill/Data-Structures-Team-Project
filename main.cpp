@@ -2,28 +2,57 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include "Graph.h"
+#include "Graph.cpp"
+#include "Vertex.h"
+#include "MinHeap.h"
+#include "MinHeap.cpp"
 using namespace std;
 
-vector <vector<char>> CSVLine(const char* line){
 
-    vector<vector<char>> fields;
-    vector<char> current;
-    bool hasQuotes = false;
+/*
+
+// Seperates the line by commas and quotes
+template <typename T>
+vector <vector<T>> SeperateData(const T* line){
+
+    vector<vector<T>> info;
+    vector<T> temp;
+    int numOfQuotes = 0; // keeps track of opening and end quotes
+
 
     // Goes through each line and seperates it at quotes and commas
     for(int i = 0; line[i] != '\0'; i++){
 
-        char c = line[i];
+        //checks by each character
+        T c = line[i];
 
         // checks if the current character is a quote
         if(c == '"'){
-            hasQuotes = !hasQuotes;
             
+            numOfQuotes++;
+
+            // checks for the end quote then pushes the info into the vector and clears temporary vector
+            if(numOfQuotes == 2){
+
+                info.push_back(temp);
+                temp.clear();
+                numOfQuotes++;
+            }
+        // Continues to push if the end quote hasent been found
+        }else if(numOfQuotes == 1){
+
+            temp.push_back(c);
+
+        //When the quote ends the comma after will be ignored
+        }else if(c == ',' && numOfQuotes == 3){
+
+            numOfQuotes = 0;
+        // Checks for commas outside quotes and pushes into info vector and clear the temporary one
         }else if(c == ','){
 
-            current.push_back('\0');
-            fields.push_back(current);
-            current.clear();
+            info.push_back(temp);
+            temp.clear();
 
         //no quotes or commas then pushes into temporary vector
         } else{
@@ -32,10 +61,11 @@ vector <vector<char>> CSVLine(const char* line){
     }
 
 
-    current.push_back('\0');
-    fields.push_back(current);
+  // pushes the last of the info
+    info.push_back(temp);
 
-    return fields;
+    //returns the vector with everything seperated
+    return info;
 
 }
 
@@ -74,11 +104,11 @@ int main(){
 
 
         // prints the vector
-       for(int i = 0; i < section.size(); ++i){
+       for(int i = 0; i < section.size(); ++i){ // prints the sections
 
             //cout << "section"<< i + 1 << ": ";
 
-            for(int j = 0; j < section[i].size(); ++j){
+            for(int j = 0; j < section[i].size(); ++j){ // prints the words
                 cout << section[i][j];
                 
             }
@@ -90,9 +120,37 @@ int main(){
         cout  << endl; 
 
    }
-   
+
    file.close();
 
     return 0;
 
+}
+
+*/
+
+
+
+int main () {
+    Graph<string> tempGraph;
+
+    Vertex<string> ATL("ATL");
+    Vertex<string> AXY("AXY");
+    Vertex<string> AVE("AVE");
+    Vertex<string> DGP("DGP");
+
+    tempGraph.insert_vertex(ATL);
+    tempGraph.insert_vertex(AXY);
+    tempGraph.insert_vertex(AVE);
+    tempGraph.insert_vertex(DGP);
+
+    tempGraph.add_edge(ATL, AXY, 100, 100);
+    tempGraph.add_edge(ATL, AVE, 200, 200);
+    tempGraph.add_edge(AVE, DGP, 300, 300);
+    tempGraph.add_edge(DGP, AXY, 400, 400)
+
+    cout << "Graph: \n";
+    tempGraph.print();
+
+    return 0;
 }

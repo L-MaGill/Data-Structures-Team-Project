@@ -5,12 +5,12 @@ class Edge {
 public:
     int src; //Starting point
     int dest; //Ending point
-    int distance; //Miles (We gotta be greedy)
+    int dist; //Miles (We gotta be greedy)
     int cost; //Price (We gotta be even greedier)
 
     //Makes a new edge
     Edge(int src = 0, int dest = 0, int dist = 0, int cost = 0) : 
-        src(src), dest(dest), weight(weight), cost(cost) {}
+        src(src), dest(dest), dist(dist), cost(cost) {}
 
 
     //Compares costs

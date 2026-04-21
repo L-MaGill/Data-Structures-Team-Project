@@ -91,6 +91,6 @@ int MinHeap<T>::min_index(int i1, int i2) const {
 }
 
 template <typename T>
-T peekMin() const {
+T MinHeap<T>::peekMin(){
     return data[0];
 }
