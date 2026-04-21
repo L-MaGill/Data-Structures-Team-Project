@@ -81,15 +81,18 @@ int main(){
 
    }
 
+   Graph<string> graph;
+   
    char line[12000];
    bool firstLine = true;  
    
-    vector<vector<vector<char>>> allinOtoD;
-    Graph<vector<vector<char>>> graph;
+   vector<vector<vector<char>>> allinOtoD;
+    
     
    // reads lines from file
    while(file.getline(line, sizeof(line))){
 
+    
 
     // Skips column headings
         if(firstLine){
@@ -102,9 +105,27 @@ int main(){
         // seperates lines and saves them into a vector
         vector<vector<char>> section = SeperateData(line);
 
-        Vertex<vector<vector<char>>> line(section);
+        //Goes through the seperated data and makes it into its own string from char
+        string origin(section[0].begin(), section[0].end()); 
+        string dest(section[1].begin(), section[1].end());
+        string dist_str(section[4].begin(), section[4].end());
+        string cost_str(section[5].begin(), section[5].end());
 
-        graph.insert_vertex(line);
+        //Convert distance and cost from strings to integers
+        int distance = stoi(dist_str);
+        int cost = stoi(cost_str);
+
+        Vertex<string> v1(origin);
+        Vertex<string> v2(dest);
+
+        graph.insert_vertex(v1);
+        graph.insert_vertex(v2);
+        graph.add_edge(v1, v2, distance, cost);
+
+
+        //Vertex<vector<vector<char>>> line(section);
+
+        //graph.insert_vertex(line);
 
          vector<vector<char>> OtoD;
 
@@ -115,52 +136,13 @@ int main(){
         allinOtoD.push_back(OtoD);
 
 
-
-
-
-
-        /*
-        // prints the vector
-       for(int i = 0; i < section.size(); ++i){ // prints the sections
-
-            //cout << "section"<< i + 1 << ": ";
-
-            for(int j = 0; j < section[i].size(); ++j){ // prints the words
-                cout << section[i][j];
-                
-            }
-
-            cout  << endl;
-
-        }
-
-        cout  << endl; 
-
-   }
-    
-   */
-
-
-       for(int i = 0; i < allinOtoD.size(); ++i){ // prints the sections
-
-            //cout << "section"<< i + 1 << ": ";
-
-            for(int j = 0; j < allinOtoD[i].size(); ++j){ // prints the words
-                
-                string field(allinOtoD[i][j].begin(), allinOtoD[i][j].end());
-                cout << field << " ";
-                
-            }
-
-            cout  << endl;
-
-        }
-
 }
-
    file.close();
 
+   graph.print();
+
     return 0;
+
 
 }
 
