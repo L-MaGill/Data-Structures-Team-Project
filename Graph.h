@@ -26,6 +26,8 @@ public:
     int get_vertex_index(const Vertex<T>& ver) const; //Return the index of a given vertex (in a vector)
 
     void clean_visited(); //Resets if you've been to an airport or not (return to 0)
+
+    T shortest_path(); //Finds the shortest path to the airport
     
 private:
     std::vector<Vertex<T>> vertices; //list of airports 

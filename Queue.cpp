@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 using namespace std;
 
 template <typename T>
@@ -13,16 +14,18 @@ class Queue {
 private:
     Node<T>* front;
     Node<T>* rear;
-    T count;
+    int count;
 
 public:
     // Constructor
-    Queue() : front(nullptr), rear(nullptr) {}
+    Queue(): front(nullptr), rear(nullptr), count(0){}
 
     // Destructor to free up memory
     ~Queue() {
         while (front != nullptr) {
-            deQueue();
+            Node<T>* temp = front;
+            front = front->next;
+            delete temp;
         }
     }
 
@@ -30,17 +33,16 @@ public:
    
     void enQueue(T x) {
         Node<T>* newNode = new Node<T>(x);
+
         if(front == nullptr) {
-            front == newNode;
-            rear == newNode;
+            front = newNode;
+            rear = newNode;
             count++;
-            return;
         }
         else{
             rear->next = newNode;
             rear = newNode;
             count++;
-            return;
         }
         
            }
@@ -53,10 +55,10 @@ public:
             return;
         }
         else {
-            Node<T>* newNode = front;
+            Node<T>* temp = front;
             front = front->next;
+            delete temp;
             count--;
-            delete front;
         }
         if(front == nullptr) {
             rear = nullptr;
@@ -69,11 +71,11 @@ public:
     void printQueue() const {
         Node<T>* node = front;
         while (node != nullptr) {
-            cout << node->data << "->" << endl;
+            cout << node->data << "-> " ;
             node = node->next;
         }
-        cout <<"NULL\n";
-            }
+        cout << endl;
+    }
 
     // Returns the front element
     
@@ -93,12 +95,12 @@ public:
         return rear->data;
     }
     // Returns the size of the queue
-    int size() {
+    int size() const {
         return count;
         }
     //Returns if the queue is empty or not
     
-    T isEmpty() {
+    bool isEmpty() const {
         return count == 0;
     }
        };

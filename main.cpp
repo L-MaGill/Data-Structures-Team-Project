@@ -2,15 +2,11 @@
 #include <fstream>
 #include <string>
 #include <iostream>
-#include "Graph.h"
 #include "Graph.cpp"
-#include "Vertex.h"
-#include "MinHeap.h"
 #include "MinHeap.cpp"
+#include "Queue.cpp"
+#include "Stack.cpp"
 using namespace std;
-
-
-
 
 // Seperates the line by commas and quotes
 template <typename T>

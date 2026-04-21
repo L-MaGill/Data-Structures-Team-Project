@@ -81,7 +81,8 @@ void someVectorFunction () {
 
 
 
-
+    template <typename T>
+    T shortest_path()
 
 
 
