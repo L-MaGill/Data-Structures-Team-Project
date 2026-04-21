@@ -8,6 +8,8 @@
 #include "Stack.cpp"
 using namespace std;
 
+
+
 // Seperates the line by commas and quotes
 template <typename T>
 vector <vector<T>> SeperateData(const T* line){
@@ -81,6 +83,7 @@ int main(){
 
    char line[12000];
    bool firstLine = true;  
+
   
    // reads lines from file
    while(file.getline(line, sizeof(line))){
@@ -94,11 +97,50 @@ int main(){
 
         }
 
-
         // seperates lines and saves them into a vector
         vector<vector<char>> section = SeperateData(line);
 
+        Graph<vector<vector<char>>> graph;
+        Vertex<vector<vector<char>>> line(section);
 
+        graph.insert_vertex(line);
+
+
+        /*
+        
+        vector[[origin_airport; dest; citu_o; city_d; dist; cost]; origin....]
+        
+        
+        */
+
+         vector<vector<char>> OtoD;
+         vector<vector<vector<char>>> allinOtoD;
+        
+        OtoD.push_back(section[0]);
+        OtoD.push_back(section[1]);
+
+        allinOtoD.push_back(OtoD);
+
+       for(int i = 0; i < allinOtoD.size(); ++i){ // prints the sections
+
+            //cout << "section"<< i + 1 << ": ";
+
+            for(int j = 0; j < allinOtoD[i].size(); ++j){ // prints the words
+                
+                string field(allinOtoD[i][j].begin(), allinOtoD[i][j].end());
+                cout << field << " ";
+                
+            }
+
+            cout  << endl;
+
+        }
+
+
+
+
+
+        /*
         // prints the vector
        for(int i = 0; i < section.size(); ++i){ // prints the sections
 
@@ -116,10 +158,15 @@ int main(){
         cout  << endl; 
 
    }
+    
+   */
 
    file.close();
 
     return 0;
 
 }
+
+}
+
 

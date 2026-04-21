@@ -1,11 +1,12 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <string>
 #include "Vertex.h"
 #include "Edge.h"
 #include <vector>
-#include <string>
 #include <iostream>
+using namespace std;
 
 
 template <typename T>
@@ -27,7 +28,17 @@ public:
 
     void clean_visited(); //Resets if you've been to an airport or not (return to 0)
 
-    T shortest_path(); //Finds the shortest path to the airport
+    int getAirportIndex(const string& airportCode) const; //Finds the index of the desired airport in the vector
+
+    string getState(const string& city) const; //Finds the state
+
+    vector<string> getAirportData (const string& fileLine);
+
+
+
+
+
+    T shortest_path(const T& src, const T& dest, int distance, int cost); //Finds the shortest path to the airport
     
 private:
     std::vector<Vertex<T>> vertices; //list of airports 
