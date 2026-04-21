@@ -4,8 +4,6 @@
 
 #include "Graph.h"
 #include "MinHeap.h"
-#include "MinHeap.cpp"
-#include "Queue.cpp"
 
 #define INT_MAX 1000
 
@@ -32,7 +30,7 @@ void someVectorFunction () {
     //Add an edge
     //connect ver1 with ver2
     template <typename T>
-    void Graph<T>::add_edge(const Vertex<T>& ver1, const Vertex<T>& ver2, T distance, T cost) {
+    void Graph<T>::add_edge(const Vertex<T>& ver1, const Vertex<T>& ver2, int distance, int cost) {
 
         int i1 = get_vertex_index(ver1);
         int i2 = get_vertex_index(ver2);
@@ -54,7 +52,7 @@ void someVectorFunction () {
 
             for(int j = 0; j < edges[i].size(); j++) {
                 cout << '{' << vertices[edges[i][j].dest].getData() << ", ";
-                cout << edges[i][j].weight << "} ";
+                cout << edges[i][j].dist << ", " << edges[i][j].cost << " } ";
             }
 
             std::cout << " }\n";

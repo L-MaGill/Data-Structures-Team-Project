@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
-template <typename T>
 
+template <typename T>
 struct Node {
     T data;
     Node<T>* next;
@@ -27,7 +27,7 @@ public:
     }
 
     // Enqueue operation (Same as pushback())
-    template typename<T>
+   
     void enQueue(T x) {
         Node<T>* newNode = new Node<T>(x);
         if(front == nullptr) {
@@ -46,7 +46,7 @@ public:
            }
 
     // Dequeue operation
-    template typename<T>
+    
     void deQueue() {
         if (front == nullptr) {
             cout << "Queue is empty";
@@ -65,7 +65,7 @@ public:
           }
 
     // Utility function to print the entire queue
-    template typename<T>
+    
     void printQueue() const {
         Node<T>* node = front;
         while (node != nullptr) {
@@ -76,7 +76,7 @@ public:
             }
 
     // Returns the front element
-    template typename<T>
+    
     T getFront() const {
         if(front == nullptr) {
             throw runtime_error("Queue is empty");
@@ -85,7 +85,7 @@ public:
     }
 
     // Returns the rear element
-    template typename<T>
+    
     T getRear() const {
         if(rear == nullptr) {
             throw runtime_error("Queue is empty");
@@ -97,7 +97,7 @@ public:
         return count;
         }
     //Returns if the queue is empty or not
-    template typename<T>
+    
     T isEmpty() {
         return count == 0;
     }

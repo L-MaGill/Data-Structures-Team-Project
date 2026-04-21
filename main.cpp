@@ -10,7 +10,7 @@
 using namespace std;
 
 
-/*
+
 
 // Seperates the line by commas and quotes
 template <typename T>
@@ -127,30 +127,3 @@ int main(){
 
 }
 
-*/
-
-
-
-int main () {
-    Graph<string> tempGraph;
-
-    Vertex<string> ATL("ATL");
-    Vertex<string> AXY("AXY");
-    Vertex<string> AVE("AVE");
-    Vertex<string> DGP("DGP");
-
-    tempGraph.insert_vertex(ATL);
-    tempGraph.insert_vertex(AXY);
-    tempGraph.insert_vertex(AVE);
-    tempGraph.insert_vertex(DGP);
-
-    tempGraph.add_edge(ATL, AXY, 100, 100);
-    tempGraph.add_edge(ATL, AVE, 200, 200);
-    tempGraph.add_edge(AVE, DGP, 300, 300);
-    tempGraph.add_edge(DGP, AXY, 400, 400)
-
-    cout << "Graph: \n";
-    tempGraph.print();
-
-    return 0;
-}
