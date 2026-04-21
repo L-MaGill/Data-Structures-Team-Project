@@ -4,45 +4,26 @@
 #include <iostream>
 using namespace std;
 
-vector <vector<char>> SeperateData(const char* line){
+vector <vector<char>> CSVLine(const char* line){
 
-    vector<vector<char>> data;
-    vector<char> temp;
-    int numOfQuotes = 0; // keeps track of opening and end quotes
-
+    vector<vector<char>> fields;
+    vector<char> current;
+    bool hasQuotes = false;
 
     // Goes through each line and seperates it at quotes and commas
     for(int i = 0; line[i] != '\0'; i++){
 
-        //checks by each character
         char c = line[i];
 
         // checks if the current character is a quote
         if(c == '"'){
+            hasQuotes = !hasQuotes;
             
-            numOfQuotes++;
-
-            // checks for the end quote then pushes the data into the vector and clears temporary vector
-            if(numOfQuotes == 2){
-
-                data.push_back(temp);
-                temp.clear();
-                numOfQuotes++;
-            }
-        // Continues to push if the end quote hasent been found
-        }else if(numOfQuotes == 1){
-
-            temp.push_back(c);
-
-        //When the quote ends the comma after will be ignored
-        }else if(c == ',' && numOfQuotes == 3){
-
-            numOfQuotes = 0;
-        // Checks for commas outside quotes and pushes into data vector and clear the temporary one
         }else if(c == ','){
 
-            data.push_back(temp);
-            temp.clear();
+            current.push_back('\0');
+            fields.push_back(current);
+            current.clear();
 
         //no quotes or commas then pushes into temporary vector
         } else{
@@ -51,11 +32,10 @@ vector <vector<char>> SeperateData(const char* line){
     }
 
 
-  // pushes the last of the data
-    data.push_back(temp);
+    current.push_back('\0');
+    fields.push_back(current);
 
-    //returns the vector with everything seperated
-    return data;
+    return fields;
 
 }
 

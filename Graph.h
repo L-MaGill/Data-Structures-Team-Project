@@ -23,18 +23,14 @@ public:
     //Prints map of airports
     void print() const;
 
-    void DFS(Vertex<T>& ver);
-    void BFS(Vertex<T>& ver);
-    int dijkstra_shortest_path(const Vertex<T>& src, const Vertex<T>& dest);
-
 private:
     std::vector<Vertex<T>> vertices; //list of airports 
     std::vector<std::vector<Edge>> edges; //connections
+    
+    int get_vertex_index(const Vertex<T>& ver); //Return the index of a given vertex (in a vector)
 
-    void clean_visited();
+    void clean_visited(); //Resets if you've been to an airport or not (return to 0)
 
-    void DFS_helper(Vertex<T>& ver);
-    int get_vertex_index(const Vertex<T>& ver);
 };
 
 #endif
