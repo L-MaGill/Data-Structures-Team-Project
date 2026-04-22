@@ -45,6 +45,10 @@ public:
 
     Graph<T> createUndirectedGraph() const; //Constructs an undirected graph that ignores duplicates and only uses the path with lower cost
 
+    Graph<T> prim() const;
+
+    Graph<T> kruskal();
+    
 private:
     std::vector<Vertex<T>> vertices; //list of airports 
 

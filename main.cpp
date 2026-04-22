@@ -137,9 +137,6 @@ int main(){
         graph.add_edge(v1, v2, distance, cost);
 
         
-
-
-
          vector<vector<char>> OtoD;
 
         
@@ -148,44 +145,43 @@ int main(){
 
         allinOtoD.push_back(OtoD);
 
-        //U_graph.insert_vertex(v1, originCity);
-        // Undirected Graph
-       
-        //U_graph.insert(v2, destCity); // insert does not work
-        
-        //Need to find where v1->v2 or v2->v1 not both
-        // if find one then theres no direction arrow needed their cost is now 
-        // the weight
-        // ignore distance
-        // use add_undirected_edge if its true
-
-
-
-        // part b
-        // for directed edges where v1->v2 and v2->v1 exists
-        // use the smaller cost as undirected weight
-        // ignore distance
         
 
 
 
 }
    file.close();
-   
-   cout << "Functionality 1\n";
+  /*
+   cout << "Functionality 1: Weighted Directed Graph\n";
    graph.print();
-   cout << "\n";
-   graph.shortest_path("HOU","BOS");
-   cout << "\n";
-   graph.shortest_path_to_state("BOS", "NY");
-   cout << "\n";
-   graph.shortest_pathStops("ABE","ABY");
-   cout << "\n";
+   cout << "\n\n";
+*/
+  // cout << "Functionality 2: Shortest Path (Distance)\n";
+   //graph.shortest_path("TPA","ANC");
+   //cout << "\n\n";
+   cout << "Functionality 3: Shortest Path to State\n";
+   graph.shortest_path_to_state("BOS", "MA");
+   cout << "\n\n";
+  // cout << "Functionality 4: Shortest Path with n Stops\n";
+   //graph.shortest_pathStops("TPA","ANC");
+   //cout << "\n\n";
+   /*
+   cout << "Functionality 5: Total Direct Connections\n";
    graph.directConnections();
-   cout << "\n";
-   cout << "Functionality 6\n";
-   Graph<string> Gu = graph.createUndirectedGraph();
+   cout << "\n\n";
+   cout << "Functionality 6: Undirected Graph\n";
+   
    Gu.print();
+   cout << "\n\n";
+   
+   Graph<string> Gu = graph.createUndirectedGraph();
+    cout << "Functionality 7: Minimal Spanning Tree with Prim's Algorithm\n";
+   Gu.prim();
+   cout << "\n\n";
+   cout << "Functionality 8: Minimal Spanning Tree with Kruskal's Algoritm\n";
+   Gu.kruskal();
+   cout << "\n\n";
+   */ 
     return 0;
 
 

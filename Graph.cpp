@@ -105,7 +105,6 @@ using namespace std;
 
     template <typename T>
     void Graph<T>::shortest_path(const T& src, const T& dest){
-        cout <<"Functionality 1: \n";
         
         //Count how many vertices we have
         int n = vertices.size();
@@ -224,7 +223,7 @@ using namespace std;
 
     template <typename T>
     void Graph<T>::shortest_path_to_state (const T& src, const string& destState) {
-        cout <<"Functionality 2: \n";
+        
         int n = vertices.size();
         if (n == 0) {
             cout << "No flights found :(";
@@ -281,7 +280,7 @@ using namespace std;
         bool statePath = 0;
         cout << "Shortest paths from " << src << " to " <<  destState << " state airports are: " << endl;
 
-        cout << "Path                  Length   Cost" << endl;
+        cout << "Path               Length      Cost" << endl;
         for (int i = 0; i < n; i++) {
             if (minDistance[i] == INT_MAX) 
                 continue;
@@ -333,7 +332,6 @@ using namespace std;
 
     template <typename T>
     void Graph<T>::shortest_pathStops(const T& src, const T& dest){
-        cout <<"Functionality 3: \n";
         
         //Count how many vertices we have
         int n = vertices.size();
@@ -440,7 +438,6 @@ using namespace std;
 //LILLY'S SPACE GABY CAN'T HAVE IT
 template <typename T>
 void Graph<T>::directConnections () const {
-    cout <<"Functionality 4: \n";
         
     //Count how many vertices we have
     int n = vertices.size();
@@ -543,4 +540,259 @@ Graph<T> Graph<T>::createUndirectedGraph() const {
         }
     }
     return Gu;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+
+//Lilly's space NO GABYS ALLOWED >:D Touched it
+// more touching
+
+template <typename T>
+
+Graph<T> Graph<T>::prim() const {
+    Graph<T> Gu = createUndirectedGraph(); 
+
+    int n = Gu.vertices.size();
+
+    if (n == 0) {
+        cout << "No flights found :(";
+        return Gu;
+    }
+    //Create a set MSTVertices that keeps track of vertices already included in MST
+    vector<bool> visited (n, 0); //Will mark if it's been visited yet or not
+
+    //Assign a key value to all vertices in the input graph. Initialize all key values as INFINITE
+    //Assign key value as 0 for the first vertex so that it is picked first.
+    vector<long> minCost(n, INT_MAX); //Tracks the minimum costs
+    vector<int> parent (n, -1); //Tracks the parent the search is from
+
+    minCost[0] = 0;
+
+    long totalCost = 0;
+
+    //While MSTVertices doesn’t include all vertices
+    for (int i = 0; i < n; i++){
+        //Pick a vertex u which is not there in MSTVertices and has minimum key value
+        int u = -1;
+        long minPath = INT_MAX;
+        
+        //find  the vertex with the smallest cost
+        for (int k = 0; k < n ; k++) {
+            if(!visited[k] && minCost[k] < minPath) {
+                minPath = minCost[k];
+                u = k;
+            }
+        }
+        if (u == -1) //If we cycle through everything and it's still -1, just don't
+            break;
+        
+        visited[u] = 1;
+        totalCost += minCost[u]; //Update total cost
+        
+        //Update key value of all adjacent vertices of u.
+        for (const Edge& edgy : Gu.edges[u]) {
+            int goingTo = edgy.dest;
+
+            //Make sure that the vertex should be included rn
+            if(!visited[goingTo] && edgy.cost < minCost[goingTo]) {
+                minCost[goingTo] = edgy.cost; //That is a much better deal :O let's do this one
+                parent[goingTo] = u; //never forget where you come from =w=
+
+            }
+        }
+    }
+
+    //Prints the tree in the required format
+    cout << "Minimal Spanning Tree:\n";
+    cout << "Edge                          Weight\n";
+    
+    for(int i = 0; i < n; i++) {
+        if (parent[i] != -1) {
+            cout << vertices[parent[i]].getData() << " - " << vertices[i].getData() << "                        " << minCost[i] << endl;
+        }
+    }
+
+    cout << "\n Total Cost of MST: " << totalCost << endl;
+
+    return Gu;
+    
+} 
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+// Gaby's Space
+//No I want it you can't have it give it to me >:3
+//mo I touched yours
+//Im touching yours even more then >:D RUDE
+//RIP edgy1, dead at the hands of GABY
+
+
+template <typename T>
+Graph<T> Graph<T>::kruskal(){
+
+    int n = vertices.size();
+
+    Graph<T> Gu = createUndirectedGraph();
+    Edge edgy2;
+
+    // checks for flights
+    if (n == 0) {
+        cout << "No flights found :(";
+        return Gu;
+    }
+
+    vector<vector<long>> minCost(n, vector<long>(n, INT_MAX));
+
+    // Used to get minCost
+    for (int i = 0; i < n; i++) {
+        for (const Edge& edgy : edges[i]) {
+            int currVer = edgy.dest;
+            if(edgy.cost < minCost[i][currVer]) 
+                minCost[i][currVer] = edgy.cost;
+            if(edgy.cost < minCost[currVer][i]) 
+                minCost[currVer][i] = edgy.cost;
+        }
+    }
+
+    
+
+    //Finds the total amount of edges
+    int totalEdges = 0;
+    for(int i = 0; i < n; i++){
+        
+        for(int j = i + 1; j < n; j++){
+
+            if(minCost[i][j] != INT_MAX){
+                totalEdges++;
+            }
+
+        }
+
+    }
+
+ 
+    vector<Edge> sortedEdges;
+    
+    // Sorts the Edges by minimum
+    for (int k = 0; k < totalEdges; k++) {
+     
+        long cost = INT_MAX;
+        int minU = -1;
+        int minV = -1;
+
+
+        for(int i = 0; i < n; i++){
+
+            for (int j = i + 1; j < n; j++){
+                
+                if(minCost[i][j] < cost){
+
+                    cost = minCost[i][j];
+
+                    minU = i;
+                    minV = j;
+
+                }
+
+            }
+
+        }
+        //saves edge information
+        edgy2.src = minU;
+        edgy2.dest = minV;
+        edgy2.cost = cost;
+        //pushes it
+        sortedEdges.push_back(edgy2);
+        //prevents the edge from being pushed again
+        minCost[minU][minV] = INT_MAX;
+        minCost[minV][minU] = INT_MAX;
+
+    }
+
+    //gives the vertex's numbers to keep track of them
+    vector<int> vertexNum(n);
+    for(int i = 0; i < n; i++){
+
+        vertexNum[i] = i;
+
+    }
+
+    //keeps track of edges visited
+    int edgesUsed = 0;
+    
+    for(auto &edgy3: sortedEdges){
+
+        int u = edgy3.src;
+        int v = edgy3.dest;
+
+        //skip when u and v are the same to avoid making a cycle
+        if(vertexNum[u] == vertexNum[v]){
+
+            continue;
+
+        } else{
+            // adds the edge and keeps track of edges used
+            // and then connects vertices with edges
+            Gu.add_edge(vertices[u], vertices[v], 0, edgy3.cost);
+            edgesUsed++;
+
+            
+            int vnum = vertexNum[v];
+            int unum = vertexNum[u];
+
+
+            for(int i = 0; i < n; i++){
+
+                if(vertexNum[i] == vnum){
+
+                    vertexNum[i] = unum;
+
+                }
+
+            }
+
+            //Stops the function when MST has been created
+            if(edgesUsed == n - 1){
+
+                break;
+
+            }
+
+
+        }
+
+
+    }
+
+  
+    long totalCost = 0;
+
+    //Prints the tree in the required format
+    cout << "Minimal Spanning Tree:\n";
+    cout << "Edge                          Weight\n";
+    
+    for(int i = 0; i < n; i++) {
+        
+        for(const Edge& edgy4 : Gu.edges[i]){
+
+            if(i < edgy4.dest){
+
+                cout << Gu.vertices[i].getData() << "-" << Gu.vertices[edgy4.dest].getData() << "                          " << edgy4.cost << endl;
+                totalCost += edgy4.cost; // Finds total cost
+            }
+
+        }
+
+    }
+
+    cout << "Total MST Cost: " << totalCost << endl;
+
+    return Gu;
+
+
+
 }
