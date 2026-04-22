@@ -11,11 +11,6 @@
 
 using namespace std;
 
-template <typename T>
-void someVectorFunction () {
-    vector<T> someVector;
-    
-}
 
     //Add an airport
     template <typename T>
@@ -29,6 +24,8 @@ void someVectorFunction () {
         }
 
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
 
     //Add an edge
     //connect ver1 with ver2
@@ -46,6 +43,17 @@ void someVectorFunction () {
         edges[i1].push_back(v);
 
     }
+    
+    template <typename T>
+    void add_undirected_edge(const Vertex<T>& ver1, const Vertex<T>& ver2, int cost){
+
+        add_edge(ver1, ver2, 0, cost);
+        add_edge(ver2, ver1, 0, cost);
+
+
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
 
     //Prints map of airports
     template <typename T>
@@ -66,6 +74,8 @@ void someVectorFunction () {
         
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+
     template <typename T>
     int Graph<T>::get_vertex_index(const Vertex<T>& ver)  {
         for(int i = 0; i < vertices.size(); i++) {
@@ -79,6 +89,8 @@ void someVectorFunction () {
         return -1;
     }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
     template <typename T>
     void Graph<T>::clean_visited() {
         for(Vertex<T>& v : vertices) {
@@ -87,6 +99,7 @@ void someVectorFunction () {
     }
     
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
     
 
@@ -185,6 +198,7 @@ void someVectorFunction () {
         cout << ". The length is " << minDistance[adj] << ". The cost is " << totalCost[adj] << ".\n";
     }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
   
 
@@ -314,6 +328,7 @@ void someVectorFunction () {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
     
 
     template <typename T>
@@ -420,4 +435,112 @@ void someVectorFunction () {
         cout << ". The length is " << minDistance[adj] << ". The cost is " << totalCost[adj] << ".\n";
         
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
+//LILLY'S SPACE GABY CAN'T HAVE IT
+template <typename T>
+void Graph<T>::directConnections () const {
+    cout <<"Functionality 4: \n";
+        
+    //Count how many vertices we have
+    int n = vertices.size();
+    if (n == 0) {
+        cout << "No flights found :(";
+        return;
+    }
+    
+    //Initialize the vector as 0
+    vector<int> inDirect(n, 0); 
+    vector<int> outDirect(n, 0);
+    
+    //count the flights going out of an irport
+    for (int i = 0 ; i < n; i++) {
+        outDirect[i] = edges[i].size();
+    }
+
+    //count the number of flights going into an airport
+    for (int i = 0; i < n; i++) {
+        for (const Edge& edgy : edges[i]) { 
+            inDirect[edgy.dest] += 1;
+        }
+    }
+
+    //Create the basis for the ranked direct flights to be put into
+    vector<int> rankedDirect(n);
+    for (int i = 0; i < n; i++) {
+        rankedDirect[i] = i;
+    }
+
+    for(int i = 0; i < n; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            int rankTemp1 = inDirect[rankedDirect[j]] + outDirect[rankedDirect[j]];
+            int rankTemp2 = inDirect[rankedDirect[j+1]] + outDirect[rankedDirect[j+1]];
+
+            if (rankTemp1<rankTemp2) {
+                int rank = rankedDirect[j];
+                rankedDirect[j] = rankedDirect[j+1];
+                rankedDirect[j+1] = rank;
+            }
+        }
+    }
+
+    cout << "Airport   Connections" << endl;
+    for (int i = 0; i < n; i++) {
+        int rankedIndex = rankedDirect[i];
+        int total = inDirect[rankedIndex] + outDirect[rankedIndex];
+        cout << vertices[rankedIndex].getData() << "       " << total << endl;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Inserts an undirected edge
+template <typename T>
+void Graph<T>::add_undirected_edge(const Vertex<T>& ver1, const Vertex<T>& ver2, int cost) {
+    add_edge(ver1, ver2, 0, cost);
+    add_edge(ver2, ver1, 0, cost);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+template <typename T>
+Graph<T> Graph<T>::createUndirectedGraph() const {
+    Graph<T> Gu;
+    int n = vertices.size();
+    //If no airports, we are sad
+    if (n==0)
+        return Gu;
+
+    //Makes a new vertex for each airport and puts it in Gu
+    for (int i = 0; i < n; i++) {
+        Vertex<T> temp = vertices[i];
+        Gu.insert_vertex(temp, airportCities[i]);
+    }
+
+    //Create a vector that will be used to store the minCost of every pathway
+    vector<vector<long>> minCost(n, vector<long>(n, INT_MAX));
+
+    //Find which pathway has the shortest cost
+    for (int i = 0; i < n; i++) {
+        for (const Edge& edgy : edges[i]) {
+            int currVer = edgy.dest;
+            if(edgy.cost < minCost[i][currVer]) 
+                minCost[i][currVer] = edgy.cost;
+            if(edgy.cost < minCost[currVer][i]) 
+                minCost[currVer][i] = edgy.cost;
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        for (int k = i + 1; k < n; k++) {
+            if(minCost[i][k] != INT_MAX) { //Make sure the path actually exists
+                long costIChooseYou = minCost[i][k];
+                Vertex<T> ver1 = vertices[i];
+                Vertex<T> ver2 = vertices[k];
+
+                Gu.add_undirected_edge(ver1, ver2, costIChooseYou);
+            }
+        }
+    }
+    return Gu;
+}

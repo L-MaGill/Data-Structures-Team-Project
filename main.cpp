@@ -67,6 +67,13 @@ vector <vector<T>> SeperateData(const T* line){
 
 }
 
+
+
+
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
 int main(){
 
     //opens file
@@ -82,6 +89,7 @@ int main(){
    }
 
    Graph<string> graph;
+   
    
    char line[12000];
    bool firstLine = true;  
@@ -119,12 +127,17 @@ int main(){
         int distance = stoi(dist_str);
         int cost = stoi(cost_str);
 
+        //Make the airports into verticies
         Vertex<string> v1(origin);
         Vertex<string> v2(dest);
 
+        //Insert them to the graph and connect them with an edge
         graph.insert_vertex(v1, originCity);
         graph.insert_vertex(v2,destCity);
         graph.add_edge(v1, v2, distance, cost);
+
+        
+
 
 
          vector<vector<char>> OtoD;
@@ -135,17 +148,44 @@ int main(){
 
         allinOtoD.push_back(OtoD);
 
+        //U_graph.insert_vertex(v1, originCity);
+        // Undirected Graph
+       
+        //U_graph.insert(v2, destCity); // insert does not work
+        
+        //Need to find where v1->v2 or v2->v1 not both
+        // if find one then theres no direction arrow needed their cost is now 
+        // the weight
+        // ignore distance
+        // use add_undirected_edge if its true
+
+
+
+        // part b
+        // for directed edges where v1->v2 and v2->v1 exists
+        // use the smaller cost as undirected weight
+        // ignore distance
+        
+
+
+
 }
    file.close();
-
-   //graph.print();
-
+   
+   cout << "Functionality 1\n";
+   graph.print();
+   cout << "\n";
    graph.shortest_path("HOU","BOS");
    cout << "\n";
    graph.shortest_path_to_state("BOS", "NY");
    cout << "\n";
    graph.shortest_pathStops("ABE","ABY");
    cout << "\n";
+   graph.directConnections();
+   cout << "\n";
+   cout << "Functionality 6\n";
+   Graph<string> Gu = graph.createUndirectedGraph();
+   Gu.print();
     return 0;
 
 
