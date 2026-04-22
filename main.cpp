@@ -108,6 +108,10 @@ int main(){
         //Goes through the seperated data and makes it into its own string from char
         string origin(section[0].begin(), section[0].end()); 
         string dest(section[1].begin(), section[1].end());
+
+        string originCity(section[2].begin(), section[2].end());
+        string destCity(section[3].begin(), section[3].end());
+
         string dist_str(section[4].begin(), section[4].end());
         string cost_str(section[5].begin(), section[5].end());
 
@@ -118,14 +122,10 @@ int main(){
         Vertex<string> v1(origin);
         Vertex<string> v2(dest);
 
-        graph.insert_vertex(v1);
-        graph.insert_vertex(v2);
+        graph.insert_vertex(v1, originCity);
+        graph.insert_vertex(v2,destCity);
         graph.add_edge(v1, v2, distance, cost);
 
-
-        //Vertex<vector<vector<char>>> line(section);
-
-        //graph.insert_vertex(line);
 
          vector<vector<char>> OtoD;
 
@@ -135,12 +135,17 @@ int main(){
 
         allinOtoD.push_back(OtoD);
 
-
 }
    file.close();
 
-   graph.print();
+   //graph.print();
 
+   graph.shortest_path("HOU","BOS");
+   cout << "\n";
+   graph.shortest_path_to_state("BOS", "NY");
+   cout << "\n";
+   graph.shortest_pathStops("ABE","ABY");
+   cout << "\n";
     return 0;
 
 
