@@ -5,7 +5,7 @@
 #include "Graph.cpp"
 #include "MinHeap.cpp"
 #include "Queue.cpp"
-#include "Stack.cpp"
+//#include "Stack.cpp"
 using namespace std;
 
 
@@ -151,37 +151,35 @@ int main(){
 
 }
    file.close();
-  /*
+  
    cout << "Functionality 1: Weighted Directed Graph\n";
    graph.print();
-   cout << "\n\n";
-*/
-  // cout << "Functionality 2: Shortest Path (Distance)\n";
-   //graph.shortest_path("TPA","ANC");
-   //cout << "\n\n";
-   cout << "Functionality 3: Shortest Path to State\n";
-   graph.shortest_path_to_state("BOS", "MA");
-   cout << "\n\n";
-  // cout << "Functionality 4: Shortest Path with n Stops\n";
-   //graph.shortest_pathStops("TPA","ANC");
-   //cout << "\n\n";
-   /*
-   cout << "Functionality 5: Total Direct Connections\n";
-   graph.directConnections();
-   cout << "\n\n";
-   cout << "Functionality 6: Undirected Graph\n";
+    cout << "\n\n";
+
+    cout << "Functionality 2: Shortest Path (Distance)\n";
+    graph.shortest_path("TPA","ANC");
+    cout << "\n\n";
+    cout << "Functionality 3: Shortest Path to State\n";
+    graph.shortest_path_to_state("BOS", "MA");
+    cout << "\n\n";
+    cout << "Functionality 4: Shortest Path with n Stops\n";
+    graph.shortest_pathStops("TPA","ANC");
+    cout << "\n\n";
+    cout << "Functionality 5: Total Direct Connections\n";
+    graph.directConnections();
+    cout << "\n\n";
+    cout << "Functionality 6: Undirected Graph\n";
    
-   Gu.print();
-   cout << "\n\n";
+    Gu.print();
+    cout << "\n\n";
    
-   Graph<string> Gu = graph.createUndirectedGraph();
+    Graph<string> Gu = graph.createUndirectedGraph();
     cout << "Functionality 7: Minimal Spanning Tree with Prim's Algorithm\n";
-   Gu.prim();
-   cout << "\n\n";
-   cout << "Functionality 8: Minimal Spanning Tree with Kruskal's Algoritm\n";
-   Gu.kruskal();
-   cout << "\n\n";
-   */ 
+    Gu.prim();
+    cout << "\n\n";
+    cout << "Functionality 8: Minimal Spanning Tree with Kruskal's Algoritm\n";
+    Gu.kruskal();
+    cout << "\n\n"; 
     return 0;
 
 
