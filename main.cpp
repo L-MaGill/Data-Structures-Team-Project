@@ -88,7 +88,9 @@ int main(){
 
    }
 
-   Graph<string> graph;
+    Graph<string> graph;
+    //Graph<string> Gu;
+   
    
    
    char line[12000];
@@ -137,13 +139,13 @@ int main(){
         graph.add_edge(v1, v2, distance, cost);
 
         
-         vector<vector<char>> OtoD;
+        //vector<vector<char>> OtoD;
 
         
-        OtoD.push_back(section[0]);
-        OtoD.push_back(section[1]);
+        //OtoD.push_back(section[0]);
+        //OtoD.push_back(section[1]);
 
-        allinOtoD.push_back(OtoD);
+        //allinOtoD.push_back(OtoD);
 
         
 
@@ -152,34 +154,100 @@ int main(){
 }
    file.close();
   
-   cout << "Functionality 1: Weighted Directed Graph\n";
-   graph.print();
-    cout << "\n\n";
+string OriAirInput;
+string StateInput;
+string DestAirInput;
+Graph<string> Gu = graph.createUndirectedGraph();
+//User input for running functions
 
-    cout << "Functionality 2: Shortest Path (Distance)\n";
-    graph.shortest_path("TPA","ANC");
-    cout << "\n\n";
-    cout << "Functionality 3: Shortest Path to State\n";
-    graph.shortest_path_to_state("BOS", "MA");
-    cout << "\n\n";
-    cout << "Functionality 4: Shortest Path with n Stops\n";
-    graph.shortest_pathStops("TPA","ANC");
-    cout << "\n\n";
-    cout << "Functionality 5: Total Direct Connections\n";
-    graph.directConnections();
-    cout << "\n\n";
-    cout << "Functionality 6: Undirected Graph\n";
+int input = -1;
+while (input != 0) {
+    cout <<  "Which function would you like to run? (Enter a number 1-8; 0 to quit)" << endl;
+    
+    cin >> input;
+    if (input > 8 || input < 0) {
+        cout << "Invalid Input. Try again." << endl;
+        continue;
+    }
+
+    if (input == 1) {
    
-    Gu.print();
-    cout << "\n\n";
+        graph.print();
+        cout << "\n\n";
+
+}
+
+    else if (input == 2) {
+
+        cout << "Functionality 2: Shortest Path (Distance)\n";
+    
+        cout << "Enter the origin airport: ";
+        cin >> OriAirInput;
+        cout << "Enter in the ariport destination: ";
+        cin >> DestAirInput;
+
+    
+        graph.shortest_path(OriAirInput, DestAirInput);
+        cout << "\n\n";
+    
+    }
+
+    else if (input == 3) {
+
+        cout << "Functionality 3: Shortest Path to State\n";
+    
+        cout << "Enter the origin airport: ";
+        cin >> OriAirInput;
+        cout << "Enter in the State destination: ";
+        cin >> StateInput;
+    
+        graph.shortest_path_to_state(OriAirInput, StateInput);
+        cout << "\n\n";
+    }
+
+        else if (input == 4) {
+    
+        cout << "Functionality 4: Shortest Path with n Stops\n";
+
+        cout << "Enter the origin airport: ";
+        cin >> OriAirInput;
+        cout << "Enter in the ariport destination: ";
+        cin >> DestAirInput;
+    
+        graph.shortest_pathStops(OriAirInput, DestAirInput);
+        cout << "\n\n";
+
+    }
+
+    else if (input == 5) {
+        cout << "Functionality 5: Total Direct Connections\n";
+        graph.directConnections();
+        cout << "\n\n";
+    }
+
+    else if (input == 6) {
+        cout << "Functionality 6: Undirected Graph\n";
+        Gu.print();
+        cout << "\n\n";
+    }
    
-    Graph<string> Gu = graph.createUndirectedGraph();
-    cout << "Functionality 7: Minimal Spanning Tree with Prim's Algorithm\n";
-    Gu.prim();
-    cout << "\n\n";
-    cout << "Functionality 8: Minimal Spanning Tree with Kruskal's Algoritm\n";
-    Gu.kruskal();
-    cout << "\n\n"; 
+    else if (input == 7) {
+        cout << "Functionality 7: Minimal Spanning Tree with Prim's Algorithm\n";
+        Gu.prim();
+        cout << "\n\n";
+    }
+
+    else if (input == 8) {
+        cout << "Functionality 8: Minimal Spanning Tree with Kruskal's Algoritm\n";
+        Gu.kruskal();
+        cout << "\n\n"; 
+    }
+
+    else if (input == 0){
+        cout << "Goodbye!" << endl;
+        break;
+    }
+}
     return 0;
 
 
