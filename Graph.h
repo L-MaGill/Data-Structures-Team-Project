@@ -48,6 +48,8 @@ public:
     Graph<T> prim() const;
 
     Graph<T> kruskal();
+
+    bool airportExists(const T& airportCode) const;
     
 private:
     std::vector<Vertex<T>> vertices; //list of airports 

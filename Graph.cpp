@@ -23,6 +23,15 @@ using namespace std;
             edges.push_back(tmp); //insert empty vector to the edges
         }
 
+    }//////////////////////////////////////////////////////////////////////////////////////////////////
+
+    template <typename T>
+    bool Graph<T>::airportExists(const T& airportCode) const {
+        if (getAirportIndex(airportCode) == -1) {
+            cout << airportCode << " does not exist" << endl;
+            return 0;
+        }
+        return 1;
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,6 +121,9 @@ using namespace std;
             cout << "No flights found :(";
             return;
         }
+
+        if (!airportExists(src) || !airportExists(dest)) 
+            return;
 
         //assign the current and adjacent verticies
         int curr = getAirportIndex(src);
@@ -230,6 +242,8 @@ using namespace std;
             return;
         }
 
+        if (!airportExists(src)) 
+            return;
 
 
         int curr = getAirportIndex(src);
@@ -339,6 +353,10 @@ using namespace std;
             cout << "No flights found :(";
             return;
         }
+
+        if (!airportExists(src) || !airportExists(dest))
+            return;
+
 
         //assign the current and adjacent verticies
         int curr = getAirportIndex(src);
